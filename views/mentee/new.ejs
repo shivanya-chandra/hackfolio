@@ -1,0 +1,144 @@
+<h1>New Mentee</h1>
+
+<form id="newForm">
+  <select id="level">
+    <option value="ug">Undergraduate</option>
+    <option value="grad">Graduate</option>
+    <option value="doc">Doctoral</option>
+    <option value="pdoc">PostDoc</option>
+  </select><br /><br />
+  <input type="text" placeholder="Your Major" id="major" /> Enter comma separated list <br /><br />
+  <select id="year">
+    <option value="fr">Freshman</option>
+    <option value="so">Sophomore</option>
+    <option value="jr">Junior</option>
+    <option value="sr">Senior</option>
+  </select><br /><br />
+  <input type="text" placeholder="Minor" id="minor" /> Enter comma separated list<br /><br />
+  <select id="residency">
+    <option value="in">In-State</option>
+    <option value="out">Out of State</option>
+    <option value="int">International</option>
+  </select><br /><br />
+  State <br />
+  <select id="state" style="display: none">
+    <option value="IN">IN</option>
+    <option value="AL">AL</option>
+    <!-- Add other states here -->
+  </select>
+  <br />
+  Country <br />
+  <select id="country" name="country" style="display: none">
+    <option value="United States">United States of America</option>
+    <!-- Add other countries here -->
+  </select><br /><br />
+  <select id="gender">
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+    <option value="trans">Transgender</option>
+    <option value="dns">Prefer not to Stay</option>
+  </select><br /><br />
+  Career Interests
+  <input type="text" placeholder="Interests" id="interests" /> Enter comma separated list<br /><br />
+  Pre-Professional Path
+  <select id="professional">
+    <option value="no">None</option>
+    <option value="med">Pre-Med</option>
+    <option value="law">Pre-Law</option>
+    <option value="vet">Pre-Vet</option>
+
+  </select><br /><br />
+  <label for="mentee">I want to be a mentee</label>
+  <input type="checkbox" id="mentee" /><br /><br />
+  <label for="mentor">I want to be a mentor</label>
+  <input type="checkbox" id="mentor" /><br /><br />
+  <button type="button" id="newBtn">Submit</button>
+
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<script type="text/javascript">
+  var notyf = new Notyf();
+
+  document.getElementById("residency").addEventListener("change", function() {
+    if (this.value == "out") {
+      document.getElementById("state").style.display = "block";
+    } else {
+      document.getElementById("state").style.display = "none";
+    }
+  });
+
+  document.getElementById("residency").addEventListener("change", function() {
+    if (this.value == "int") {
+      document.getElementById("country").style.display = "block";
+    } else {
+      document.getElementById("country").style.display = "none";
+    }
+  });
+
+  document.getElementById("newBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    var level = document.getElementById("level").value;
+    var major = document.getElementById("major").value;
+    var year = document.getElementById("year").value;
+    var minor = document.getElementById("minor").value;
+    var residency = document.getElementById("residency").value;
+    var state = document.getElementById("state").value;
+    var country = document.getElementById("country").value;
+    var gender = document.getElementById("gender").value;
+    var interests = document.getElementById("interests").value;
+    var professional = document.getElementById("professional").value;
+    var mentee = document.getElementById("mentee").checked;
+    var mentor = document.getElementById("mentor").checked;
+    var data = {
+      level,
+      major,
+      year,
+      minor,
+      residency,
+      state,
+      country,
+      gender,
+      professional,
+      interests,
+      mentee,
+      mentor
+    };
+
+
+    fetch("/mentee/new", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => {
+        if (!response.ok) {
+          return response.text().then(text => {
+            throw new Error(text)
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Response data:", data);
+        switch (data.status) {
+          case "error":
+            notyf.error(data.message);
+            break;
+          case "success":
+            notyf.success(data.message);
+            window.location.href = "/dashboard";
+            break;
+          default:
+            notyf.error("An error occurred");
+            break;
+        }
+      })
+      .catch(error => {
+        console.error('Fetch error:', error);
+        notyf.error("Some error occurred! Try again later");
+      });
+  });
+</script>

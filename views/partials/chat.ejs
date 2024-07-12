@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  <% if (user.friends.length) { %>
+  <!-- <p>You have connections!</p> -->
+  <!-- <% for(var i=0; i < user.friends.length; i++) { %>
+  <div>
+    <%= user.friends[i].friendName %>
+    <button type="button" class='chat-btn' id="chat-btn-<%= user.friends[i].friendID %>">Chat with <%= user.friends[i].friendName %></button>
+    <div class="chat-section" id="chat-section-<%= user.friends[i].friendID %>" style="visibility: hidden">
+      <form action="/saveChat" method="POST">
+        <input class="chat-input" id="chat-input-<%= user.friends[i].friendID %>" placeholder="Send message to <%= user.friends[i].friendName %>"></input>
+        <button type="submit" data-sender="<%= user.friends[i].friendID %>" class="send-message">Send</button>
+        <div id="messages"></div>
+      </form>
+    </div>
+  </div>
+  <% } %> -->
+  <!-- <% } else { %>
+  <p>You don't have any connections</p>
+  <% } %> -->
+</body>
+
+  <script>
+    console.log("Script loaded");
+
+    var socket = io("http://localhost:8080");
+
+    // Initialize Notyf
+    var notyf = new Notyf();
+
+    // Attach the chat message listener once
+    socket.on('chat message', function(msg) {
+      var item = document.createElement('li');
+      var messages = document.getElementById("messages");
+      item.innerHTML = `
+        <h6>${msg.senderName}</h6>
+        <div class="msg-blob">
+          ${msg.message}
+        </div>
+        <br>
+      `;
+      messages.appendChild(item);
+    });
+
+    document.querySelectorAll('.chat-btn').forEach(button => {
+      console.log("Chat button found:", button);
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        console.log("Chat button clicked!", e.target.id);
+        var friendID = e.target.id.replace('chat-btn-', '');
+        var element = document.getElementById('chat-section-' + friendID);
+        console.log("Chat section element:", element);
+        element.style.visibility = 'visible';
+      });
+    });
+
+    document.addEventListener("click", function(e) {
+      if (e.target && e.target.classList.contains('send-message')) {
+        e.preventDefault();
+        console.log("Send message button clicked!", e.target);
+
+        const messageReceiver = e.target.getAttribute('data-sender');
+        console.log("Message receiver ID:", messageReceiver);
+        const messageInput = document.getElementById('chat-input-' + messageReceiver);
+        if (messageInput) {
+          const message = messageInput.value;
+          console.log("Message:", message);
+
+          var data = {
+            receiverID: messageReceiver,
+            message: message,
+            senderName: "<%= user.name %>"
+          };
+
+          console.log("Data to send:", data);
+          fetch('/saveChat', {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(data),
+            }).then(response => {
+              console.log("Response received:", response);
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              console.log("Data received:", data);
+              switch (data.status) {
+                case "error":
+                  notyf.error(data.message);
+                  break;
+                case "success":
+                  notyf.success(data.message);
+                  break;
+                default:
+                  notyf.error("Some error");
+                  break;
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              notyf.error("Some error");
+            });
+
+          var username = {
+            id: "<%= user._id %>",
+            name: "<%= user.name %>"
+          };
+          socket.emit('user_connect', username);
+          socket.emit('chat message', data);
+        } else {
+          console.error('Message input element not found.');
+        }
+      }
+    });
+  </script>
+
+
+</html>

@@ -1,0 +1,51 @@
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+
+<div class="login__wrapper">
+  <h1>Log<span class="span--register">in</span></h1>
+  <form id="loginForm">
+    <input name="email" id="email" type="email" placeholder="Email" required> <br><br>
+    <input name="password" id="password" type="password" placeholder="Password" class="form-control" required> <br><br>
+    <button type="submit" id="loginBtn">Login</button>
+</form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<!-- <script src="/js/login.js"></script> -->
+<script>
+    var notyf = new Notyf();
+    let redirect = "<%= redirect %>";
+const loginBtn = document.querySelector("#loginBtn");
+
+loginBtn.addEventListener("click", (e) => {
+  e.preventDefault();  
+  const email = document.querySelector("#email").value;
+  const password = document.querySelector("#password").value;
+
+  fetch("/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+        switch (data.status) {
+            case "error": 
+                notyf.error(data.message);
+                break;
+            case "success":                
+                notyf.success("Logging in");      
+                setTimeout(() => {
+                    window.location.href = redirect;
+                }, 2000);
+                break;
+            default:
+                break;
+        }
+    });
+});
+</script>

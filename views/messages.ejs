@@ -1,0 +1,8 @@
+<h1>Messages</h1>
+<br><br>
+<br>
+<ul>
+<% for (let i = 0; i < friends.length; i++
+) { %>
+    <a href="/chat/<%=userId%>/<%= friends[i].friendID %>"> <li> <%= friends[i].friendName %> </li></a> <br>
+    <% } %></ul>

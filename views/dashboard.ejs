@@ -1,0 +1,143 @@
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+<div class="dashboard__container">
+  <h1>Welcome,<span class="special-dashboard"> <%= user.name %> </span> </h1>
+
+  <div class="dashboard__wrapper">
+
+    <!--messages, explore mentors, become a mentor, connections, preferences, make profile-->
+    <% if (user.profileCreated) { %>
+    <div class="card">
+      <a>Profile already created</a>
+    </div>
+    <form action="/profile" method="POST">
+      <div class="card">
+        <a>Edit Profile</a>
+        <button type="button" class="edit-profile" id="edit-profile" onclick="editProfile()">Edit Profile</button>
+      </div>
+    </form>
+
+
+
+    <!-- 
+    <% if (user.requests.length) { %>
+    <form id="friendRequestForm" action="/addFriend" method="POST"></form>
+    <p>You have some requests</p>
+    <% for(var i=0; i < user.requests.length; i++) { %>
+    <div>
+      <%= user.requests[i].requestSender %>
+      <button type="button" class="accept-btn" onclick="acceptRequest(event)" data-sender="<%= user.requests[i].requestID %>">Accept</button>
+      <button type="button" class="reject-btn" onclick="rejectRequest(event)" data-sender="<%= user.requests[i].requestID %>">Reject</button>
+    </div>
+    <% } %>
+    <% } else { %>
+    <p>You don't have any requests</p>
+    <% } %> -->
+    <% } else { %>
+    <div class="card">
+      <a href="/dashboard/new">Create Profile</a>
+    </div>
+    <% } %>
+
+    <% if (user.isMentor) { %>
+    <div class="card">
+      <a href="/mentor/dashboard">Mentor Dashboard</a>
+    </div>
+    <% } else {%>
+    <div class="card">
+      <button type="button" onclick="newMentor()">Become a mentor</button>
+    </div>
+    <% } %>
+    <% if (!user.isMentee) { %>
+    <div class="card">
+      <button type="button" onclick="newMentee()">Become a mentee</button>
+    </div>
+    <% } %>
+  </div>
+  <div class="dashboard__wrapper-2">
+
+    <form id="friendRequestForm" action="/addFriend" method="POST">
+      <% if (user.requests.length) { %>
+      <div class="card">
+        <a>You have some requests</a>
+        <input type="text" placeholder="Email" id="email" name="email" />
+
+        <button onclick="sendRequest()">Send request</button>
+
+      </div>
+      <% for(var i=0; i < user.requests.length; i++) { %>
+      <% if (!user.requests[i].acceptedStatus) {%>
+      <div>
+        <%= user.requests[i].requestSender %>
+        <button type="button" class="accept-btn" onclick="acceptRequest(event)" data-sender="<%= user.requests[i].requestID %>">Accept</button>
+        <button type="button" class="reject-btn" onclick="rejectRequest(event)" data-sender="<%= user.requests[i].requestID %>">Reject</button>
+      </div>
+      <% } else { %>
+      <!-- <p>hello</p> -->
+      <% } %>
+      <% } %>
+    </form>
+    <% } else { %>
+    <div class="card">
+      <a>You don't have any requests</a>
+      <input type="text" placeholder="Email" id="email" name="email" />
+
+      <button onclick="sendRequest()">Send request</button>
+
+    </div>
+    <% } %>
+
+    <!-- <form id="sendRequestForm" action="/sendReq" method="POST"> -->
+    <!-- </form> -->
+    <div class="card">
+      <a>Recommended Mentors</a>
+      <button onclick="getMentors()">Get recommended mentors</button>
+    </div>
+
+    <div class="card">
+      <a>Messages</a>
+    </div>
+  </div>
+  <div class="recommended-mentors">
+    <h2>Recommended <span class="special-dashboard">Mentors</span></h2>
+    <div class="mentor-cards">
+      <div class="card2">
+        <h1>COS</h1>
+        <div class="card-content">
+          <h3>Richard Jensen</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur....</p>
+        </div>
+      </div>
+      <div class="card2">
+        <h1>COS</h1>
+
+        <div class="card-content">
+          <h3>Richard Jensen</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur....</p>
+        </div>
+      </div>
+      <div class="card2">
+        <h1>COS</h1>
+
+        <div class="card-content">
+          <h3>Richard Jensen</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur....</p>
+        </div>
+      </div>
+      <div class="card2">
+        <h1>COS</h1>
+
+        <div class="card-content">
+          <h3>Richard Jensen</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur....</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%- include('./partials/chat') %>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/dashboard.js"></script>

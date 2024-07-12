@@ -1,0 +1,56 @@
+<h1>Chat</h1>
+
+<ul id="messages">
+
+     <% for (let i = 0; i < chats.length; i++) { %>
+        <li> <b> <%= chats[i].senderName %> </b> : <%= chats[i].message %></li>
+    <% } %>
+
+</ul>
+
+<form action="" id="msg">
+    <input id="msgInput" autocomplete="off" placeholder="Type your message" />
+    <button type="submit">Send</button>
+</form>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+var socket = io();
+var senderID = "<%=senderID%>";
+socket.emit('user_connect', senderID);
+
+
+let msgForm = document.getElementById('msg');
+let msg = document.getElementById('msgInput');
+let receiverID = "<%= receiverID %>";
+let senderName = "<%= senderName %>";
+console.log(senderName)
+console.log(receiverID)
+msgForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let message = msg.value;
+    if (message) {
+        
+        console.log(receiverID)
+        socket.emit('chat message', { receiverID, message, senderName, senderID });
+        msg.value = '';
+    }
+});
+
+socket.on("chat message", (e) => {
+    console.log("msg recieved")
+    if (e.receiverID == senderID && e.senderID == receiverID) {
+    let item = document.createElement('li');
+    item.innerHTML = `<b>${e.senderName}</b>: ${e.message}`;
+    document.getElementById('messages').appendChild(item);
+    }
+    else if (e.receiverID == receiverID && e.senderID == senderID) {
+        let item = document.createElement('li');
+        item.innerHTML = `<b>${e.senderName}</b>: ${e.message}`;
+        document.getElementById('messages').appendChild(item);
+    }
+})
+
+    
+
+
+</script>

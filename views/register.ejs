@@ -1,0 +1,30 @@
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+<div class="register--wrapper">
+  <h1>Regist<span class="span--register">er</span></h1>
+  <form id="regForm">
+    <div class="li--wrapper">
+      <label for="name">Name</label><br>
+      <input name="name" id="name" type="text" placeholder="Full Name" required /><br /><br />
+    </div>
+    <div class="li--wrapper">
+      <label for="email">Email</label><br>
+      <input name="email" id="email" type="email" placeholder="Email" required />
+      <br /><br />
+    </div>
+    <div class="li--wrapper">
+      <label for="password">Password</label><br>
+      <input name="password" id="password" type="password" placeholder="Password" class="form-control" required />
+      <br /><br />
+    </div>
+    <div class="li--wrapper">
+      <label for="password2">Confirm Password</label><br>
+      <input name="password2" id="password2" type="password" placeholder="Confirm Password" class="form-control" required />
+      <br /><br />
+    </div>
+
+    <button type="submit" id="regBtn">Register</button>
+  </form>
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script src="/js/register.js"></script>
+</div>
