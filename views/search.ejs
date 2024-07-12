@@ -1,90 +1,14 @@
-<h1>Create Profile</h1>
+<h1 style="color: white">Search</h1>
 
-<form id="newForm">
-  <select id="level">
-    <option value="ug">Undergraduate</option>
-    <option value="grad">Graducate</option>
-    <option value="doc">Doctoral</option>
-    <option value="pdoc">PostDoc</option></select
-  ><br /><br />
-  <input type="text" placeholder="Your academic college" id="college" />
-
-  <select id="major" aria-placeholder="Major"></select>
-  <br /><br />
-  <select id="minor" aria-placeholder="Minor"></select>
-  <br /><br />
-  <select id="year">
-    <option value="fr">Freshman</option>
-    <option value="so">Sophomore</option>
-    <option value="jr">Junior</option>
-    <option value="sr">Senior</option>
-  </select>
-  <br /><br />
-  <select id="residency">
-    <option value="in">In-State</option>
-    <option value="out">Out of State</option>
-
-    <option value="int">International</option></select
-  ><br /><br />
-
-  State <br />
-  <select id="state" style="display: none">
-    <option value="IN">IN</option>
-    <option value="AL">AL</option>
-    <option value="AK">AK</option>
-    <option value="AR">AR</option>
-    <option value="AZ">AZ</option>
-    <option value="CA">CA</option>
-    <option value="CO">CO</option>
-    <option value="CT">CT</option>
-    <option value="DC">DC</option>
-    <option value="DE">DE</option>
-    <option value="FL">FL</option>
-    <option value="GA">GA</option>
-    <option value="HI">HI</option>
-    <option value="IA">IA</option>
-    <option value="ID">ID</option>
-    <option value="IL">IL</option>
-    <option value="KS">KS</option>
-    <option value="KY">KY</option>
-    <option value="LA">LA</option>
-    <option value="MA">MA</option>
-    <option value="MD">MD</option>
-    <option value="ME">ME</option>
-    <option value="MI">MI</option>
-    <option value="MN">MN</option>
-    <option value="MO">MO</option>
-    <option value="MS">MS</option>
-    <option value="MT">MT</option>
-    <option value="NC">NC</option>
-    <option value="NE">NE</option>
-    <option value="NH">NH</option>
-    <option value="NJ">NJ</option>
-    <option value="NM">NM</option>
-    <option value="NV">NV</option>
-    <option value="NY">NY</option>
-    <option value="ND">ND</option>
-    <option value="OH">OH</option>
-    <option value="OK">OK</option>
-    <option value="OR">OR</option>
-    <option value="PA">PA</option>
-    <option value="RI">RI</option>
-    <option value="SC">SC</option>
-    <option value="SD">SD</option>
-    <option value="TN">TN</option>
-    <option value="TX">TX</option>
-    <option value="UT">UT</option>
-    <option value="VT">VT</option>
-    <option value="VA">VA</option>
-    <option value="WA">WA</option>
-    <option value="WI">WI</option>
-    <option value="WV">WV</option>
-    <option value="WY">WY</option>
-  </select>
-
-  <br />
-  Country <br />
-  <select id="country" name="country" style="display: none">
+<form action="/dashboard/search">
+  <input
+    type="text"
+    name="query"
+    id="query"
+    placeholder="Query (search for name)"
+  />
+  <select name="major" id="major"></select>
+  <select name="country" id="country">
     <option value="United States">United States of America</option>
     <option value="Afghanistan">Afghanistan</option>
     <option value="Albania">Albania</option>
@@ -299,37 +223,27 @@
     <option value="Zambia">Zambia</option>
     <option value="Zimbabwe">Zimbabwe</option>
   </select>
-  <br /><br />
-  <!-- dropdown for gender -->
-  <select id="gender">
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-    <option value="trans">Transgender</option>
-    <option value="dns">Prefer not to Stay</option>
+  <select name="college" id="college">
+    <option value="COA">College of Agriculture</option>
+    <option value="COE">College of Engineering</option>
+    <option value="COS">College of Science</option>
+    <option value="CLA">College of Liberal Arts</option>
+    <option value="CED">College of Education</option>
+    <option value="DSB">Daniels School of Business</option>
+    <option value="ES">Exploratory Stuides</option>
+    <option value="HHS">College of Health and Human Sciences</option>
+    <option value="COP">College of Pharmacy</option>
+    <option value="PPI">Polytechnic Institute</option>
+    <option value="Vet">Veterinary Medicine</option>
+    <option value="HON">Honors College</option>
+    <option value="GS">Graduate School</option>
   </select>
-  <br /><br />
-  Career Interests
-  <input type="text" placeholder="Interests" id="interests" /> Enter comma
-  seperated list<br /><br />
-
-  Pre-Professional Path
-  <select id="professional">
-    <option value="no">None</option>
-    <option value="med">Pre-Med</option>
-    <option value="law">Pre-Law</option>
-    <option value="vet">Pre-Vet</option>
-  </select>
-  <br /><br />
-
-  <label for="mentee">I want to be a mentee</label>
-  <input type="checkbox" id="mentee" />
-  <br /><br />
-  <label for="mentor">I want to be a mentor</label>
-  <input type="checkbox" id="mentor" />
-  <button id="newBtn">Submit</button>
+  <input type="submit" value="Search" />
 </form>
+
+<br /><br />
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-<script type="text/javascript">
+<script>
   var notyf = new Notyf();
   const majors = [
     "Accounting",
@@ -489,225 +403,41 @@
     option.text = majors[i];
     major.appendChild(option);
   }
-
-  const minors = [
-    "Accounting",
-    "Advanced Global Technology",
-    "Aerospace Studies",
-    "African American Studies",
-    "Agricultural Systems Management",
-    "American Studies",
-    "Animal Science",
-    "Anthropology",
-    "Aquatic Sciences",
-    "Arabic Language and Culture",
-    "Architectural Engineering",
-    "Art and Design Studio",
-    "Art History",
-    "Artificial Intelligence/Machine Learning",
-    "Asian American Studies",
-    "Asian Studies",
-    "ASL and Deaf Studies",
-    "Astronomy",
-    "Atmospheric Science",
-    "Behavioral Economics",
-    "Biochemistry",
-    "Bioinformatics",
-    "Biological Sciences",
-    "Biotechnology",
-    "Business Economics",
-    "Business French",
-    "Chemistry",
-    "Chinese",
-    "Classical Studies",
-    "Communication",
-    "Computer and Information Technology",
-    "Computer Science",
-    "Construction Management",
-    "Creative Writing",
-    "Criminal Justice",
-    "Critical Disabilities Studies",
-    "Cybersecurity",
-    "Dance",
-    "Data Analytics",
-    "Design and Innovation",
-    "Developmental and Family Science",
-    "Ecological and Environmental Engineering",
-    "Economics",
-    "Electrical and Computer Engineering Technology",
-    "English",
-    "Entrepreneurship",
-    "Environmental and Ecological Engineering",
-    "Environmental Policy",
-    "Environmental Studies",
-    "Film and Video Studies",
-    "Financial Counseling and Planning",
-    "Financial Mathematics",
-    "Food and Agribusiness Management",
-    "Food Science",
-    "Forensic Science",
-    "French",
-    "Gender and Sexuality Studies",
-    "Geographic Information Systems",
-    "Geography",
-    "German",
-    "Global Studies",
-    "Health and Human Sciences",
-    "History",
-    "Horticulture",
-    "Hospitality and Tourism Management",
-    "Human Development and Family Studies",
-    "Human Resource Development",
-    "Human Services",
-    "Individual and Family Studies",
-    "Information Technology",
-    "Integrated Studio Arts",
-    "International Business",
-    "International Studies",
-    "Italian",
-    "Japanese",
-    "Jewish Studies",
-    "Kinesiology",
-    "Linguistics",
-    "Management",
-    "Marine Biology",
-    "Materials Science and Engineering",
-    "Mathematics",
-    "Mechanical Engineering Technology",
-    "Medical Humanities",
-    "Medieval and Renaissance Studies",
-    "Military Science",
-    "Music History and Theory",
-    "Music Technology",
-    "Music",
-    "Naval Science",
-    "Nutrition",
-    "Occupational Health Science",
-    "Organizational Leadership",
-    "Peace Studies",
-    "Philosophy",
-    "Physics",
-    "Planetary Science",
-    "Plant Biology",
-    "Political Science",
-    "Portuguese",
-    "Pre-Law",
-    "Pre-Medicine",
-    "Professional Writing",
-    "Psychology",
-    "Public Health",
-    "Public Relations and Strategic Communication",
-    "Religious Studies",
-    "Retail Management",
-    "Robotics Engineering Technology",
-    "Russian",
-    "Social Work",
-    "Sociology",
-    "Soil Science",
-    "Spanish",
-    "Special Education",
-    "Statistics",
-    "Studio Arts",
-    "Sustainable Environments",
-    "Sustainable Food and Farming Systems",
-    "Sustainability",
-    "Technology, Innovation, and Entrepreneurship",
-    "Theatre",
-    "Tourism and Hospitality Management",
-    "Urban Planning",
-    "Veterinary Medicine",
-    "Web Programming and Design",
-    "Women’s, Gender, and Sexuality Studies",
-    "Other",
-  ];
-  var minor = document.getElementById("minor");
-  for (var i = 0; i < minors.length; i++) {
-    var option = document.createElement("option");
-    option.value = minors[i];
-    option.text = minors[i];
-    minor.appendChild(option);
-  }
-
-  document.getElementById("residency").addEventListener("change", function () {
-    if (document.getElementById("residency").value == "out") {
-      document.getElementById("state").style.display = "block";
-    } else {
-      document.getElementById("state").style.display = "none";
-    }
-  });
-
-  document.getElementById("residency").addEventListener("change", function () {
-    if (document.getElementById("residency").value == "int") {
-      document.getElementById("country").style.display = "block";
-    } else {
-      document.getElementById("country").style.display = "none";
-    }
-  });
-  document.getElementById("newBtn").addEventListener("click", (e) => {
+  //   code for submission
+  document.querySelector("form").addEventListener("submit", function (e) {
     e.preventDefault();
-    var level = document.getElementById("level").value;
-    var college = document.getElementById("college").value;
+    var query = document.getElementById("query").value;
     var major = document.getElementById("major").value;
-    var year = document.getElementById("year").value;
-    var minor = document.getElementById("minor").value;
-    var residency = document.getElementById("residency").value;
-    var state = document.getElementById("state").value;
     var country = document.getElementById("country").value;
-    var gender = document.getElementById("gender").value;
-    var interests = document.getElementById("interests").value;
-    var professional = document.getElementById("professional").value;
-    var mentee = document.getElementById("mentee").checked;
-    var mentor = document.getElementById("mentor").checked;
-    var data = {
-      level: level,
-      college: college,
-      major: major,
-      year: year,
-      minor: minor,
-      residency: residency,
-      state: state,
-      country: country,
-      gender: gender,
-      professional: professional,
-      interests: interests,
-      mentee: mentee,
-      mentor: mentor,
-    };
-    console.log("hey! you clicked me");
-    fetch("/dashboard/new", {
+    var college = document.getElementById("college").value;
+    if (query === "") {
+      notyf.error("Query cannot be empty");
+      return;
+    }
+    // do a post req with all these fields in the body
+    fetch("/dashboard/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        query: query,
+        major: major,
+        country: country,
+        college: college,
+      }),
     })
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
-        }
-        return response.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
-        console.log("Response data:", data);
+        console.log(data);
         switch (data.status) {
-          case "error":
-            notyf.error(data.message);
-
-            break;
           case "success":
             notyf.success(data.message);
-            window.location.href = "/dashboard";
             break;
-          default:
-            notyf.error("An error occurred");
+          case "error":
+            notyf.error(data.message);
             break;
         }
-      })
-      .catch((error) => {
-        console.error("Fetch error:", error);
-        notyf.error("Some error occurred! Try again later");
       });
   });
 </script>

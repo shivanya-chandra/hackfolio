@@ -53,22 +53,18 @@ router.post("/new", checkUser, async (req, res) => {
       }
     );
 
-
     const dbUser = await userModel.findOneAndUpdate(
       { email },
       { major: majors, minor: minors, interests: interestsList }
     );
 
     return res.json({
-
       status: "success",
       message: "Profile created successfully.",
     });
   } catch (err) {
-
     console.error("Error creating profile:", err);
     return res.status(500).json({
-
       status: "error",
       message: "Some error occurred. Please try again later.",
     });
@@ -77,6 +73,27 @@ router.post("/new", checkUser, async (req, res) => {
 
 router.get("/search", checkUser, async (req, res) => {
   res.render("search", { user: req.user });
-})
+});
+
+router.post("/search", checkUser, async (req, res) => {
+  const { query, major, college, country } = req.body;
+  const queryArr = query.split(" ");
+  const queryRegex = queryArr.map((q) => new RegExp(q, "i"));
+  // major, college, country not arrays, they are strings, search directly
+  const users = await userModel.find({
+    $or: [
+      { name: { $regex: query, $options: "i" } },
+      { major: major },
+      { college: college },
+      { country: country },
+    ],
+  });
+  // res.json({ users });
+  console.log(users);
+  res.send({
+    status: "success",
+    data: users,
+  });
+});
 
 module.exports = router;
