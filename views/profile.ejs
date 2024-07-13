@@ -2,22 +2,16 @@
 
 <form id="newForm">
   <input type="text" placeholder="Name" id="name" />Enter your name<br /><br />
-  <!-- <input type="text" placeholder="Password" id="password" />Enter your old password<br /><br />
-  <input type="text" placeholder="Password-2" id="password-new" />Enter your new password<br /><br /> -->
   <select id="level">
     <option value="ug">Undergraduate</option>
     <option value="grad">Graducate</option>
     <option value="doc">Doctoral</option>
-    <option value="pdoc">PostDoc</option>
-  </select><br /><br />
-  <!-- <input type="text" placeholder="Your Major" id="major" /> Enter comma
-  seperated list <br /><br /> -->
-  <select id="major" aria-placeholder="Major">
-  </select>
-  <br><br>
-  <select id="minor" aria-placeholder="Minor">
-  </select>
-  <br><br>
+    <option value="pdoc">PostDoc</option></select
+  ><br /><br />
+  <select id="major" aria-placeholder="Major"></select>
+  <br /><br />
+  <select id="minor" aria-placeholder="Minor"></select>
+  <br /><br />
   <select id="year">
     <option value="fr">Freshman</option>
     <option value="so">Sophomore</option>
@@ -25,14 +19,12 @@
     <option value="sr">Senior</option>
   </select>
   <br /><br />
-  <!-- <input type="text" placeholder="Minor" id="minor" />Enter comma seperated
-  list<br /><br /> -->
-  
+
   <select id="residency">
     <option value="in">In-State</option>
     <option value="out">Out of State</option>
-    <option value="int">International</option>
-  </select><br /><br />
+    <option value="int">International</option></select
+  ><br /><br />
 
   State <br />
   <select id="state" style="display: none">
@@ -338,8 +330,156 @@
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script type="text/javascript">
   const majors = [
-    "Accounting", "Actuarial Science", "Aeronautical and Astronautical Engineering", "African American Studies", "Agribusiness", "Agricultural Communication", "Agricultural Economics", "Agricultural Engineering", "Agricultural Systems Management", "Agronomy", "American Studies", "Animal Sciences", "Anthropology", "Applied Meteorology", "Applied Statistics", "Aquatic Sciences", "Architectural Engineering", "Art Education", "Art History", "Asian Studies", "Astronomy", "Athletic Training", "Atmospheric Science", "Aviation Management", "Biochemistry", "Biological Engineering", "Biological Sciences", "Biology Education", "Biomedical Engineering", "Biotechnology", "Botany and Plant Pathology", "Brain and Behavioral Sciences", "Building Construction Management", "Chemical Engineering", "Chemistry", "Chinese", "Civil Engineering", "Classical Studies", "Communication", "Comparative Literature", "Computer Engineering", "Computer Graphics Technology", "Computer Science", "Construction Engineering Management", "Creative Writing", "Criminal Justice", "Crop Science", "Cybersecurity", "Data Science", "Design and Technology", "Dietetics", "Early Childhood Education", "Earth and Atmospheric Sciences", "Ecological and Environmental Engineering", "Economics", "Electrical and Computer Engineering Technology", "Electrical Engineering", "Elementary Education", "Energy Engineering", "English", "Environmental and Ecological Engineering", "Environmental Geoscience", "Environmental Health Science", "Environmental Studies", "Film and Video Studies", "Finance", "Food Science", "Forestry", "French", "Game Studies", "Genetics", "Geology", "German", "Global Studies", "Health and Kinesiology", "Health Sciences", "History", "Horticulture", "Hospitality and Tourism Management", "Human Development and Family Studies", "Industrial Design", "Industrial Engineering", "Industrial Technology", "Information Technology", "Insurance and Risk Management", "Interdisciplinary Science", "Interior Design", "International Business", "Italian", "Japanese", "Jewish Studies", "Landscape Architecture", "Linguistics", "Management", "Manufacturing Engineering Technology", "Marketing", "Materials Engineering", "Mathematics", "Mechanical Engineering", "Mechanical Engineering Technology", "Mechatronics", "Medieval and Renaissance Studies", "Meteorology", "Microbiology", "Middle School Education", "Multidisciplinary Engineering", "Natural Resources and Environmental Science", "Neurobiology and Physiology", "Nuclear Engineering", "Nutrition and Dietetics", "Nutritional Science", "Occupational and Environmental Health Sciences", "Organizational Leadership", "Pharmacy", "Philosophy", "Physical Education", "Physics", "Plant Biology", "Plant Genetics, Breeding, and Biotechnology", "Political Science", "Psychology", "Public Health", "Radiological Health Science", "Religious Studies", "Retail Management", "Robotics Engineering Technology", "Russian", "Sales Engineering", "Sociology", "Soil and Water Sciences", "Sound for the Performing Arts", "Spanish", "Special Education", "Speech, Language, and Hearing Sciences", "Statistics", "Strategic Communication", "Supply Chain Management", "Sustainable Food and Farming Systems", "Sustainable Food and Nutrition Security", "Systems Analysis and Design", "Technology Leadership and Innovation", "Theatre", "Urban and Regional Planning", "Visual Communication Design", "Web Programming and Design", "Wildlife", "Women’s, Gender, and Sexuality Studies", "Zoology", "Other"
-  ]
+    "Accounting",
+    "Actuarial Science",
+    "Aeronautical and Astronautical Engineering",
+    "African American Studies",
+    "Agribusiness",
+    "Agricultural Communication",
+    "Agricultural Economics",
+    "Agricultural Engineering",
+    "Agricultural Systems Management",
+    "Agronomy",
+    "American Studies",
+    "Animal Sciences",
+    "Anthropology",
+    "Applied Meteorology",
+    "Applied Statistics",
+    "Aquatic Sciences",
+    "Architectural Engineering",
+    "Art Education",
+    "Art History",
+    "Asian Studies",
+    "Astronomy",
+    "Athletic Training",
+    "Atmospheric Science",
+    "Aviation Management",
+    "Biochemistry",
+    "Biological Engineering",
+    "Biological Sciences",
+    "Biology Education",
+    "Biomedical Engineering",
+    "Biotechnology",
+    "Botany and Plant Pathology",
+    "Brain and Behavioral Sciences",
+    "Building Construction Management",
+    "Chemical Engineering",
+    "Chemistry",
+    "Chinese",
+    "Civil Engineering",
+    "Classical Studies",
+    "Communication",
+    "Comparative Literature",
+    "Computer Engineering",
+    "Computer Graphics Technology",
+    "Computer Science",
+    "Construction Engineering Management",
+    "Creative Writing",
+    "Criminal Justice",
+    "Crop Science",
+    "Cybersecurity",
+    "Data Science",
+    "Design and Technology",
+    "Dietetics",
+    "Early Childhood Education",
+    "Earth and Atmospheric Sciences",
+    "Ecological and Environmental Engineering",
+    "Economics",
+    "Electrical and Computer Engineering Technology",
+    "Electrical Engineering",
+    "Elementary Education",
+    "Energy Engineering",
+    "English",
+    "Environmental and Ecological Engineering",
+    "Environmental Geoscience",
+    "Environmental Health Science",
+    "Environmental Studies",
+    "Film and Video Studies",
+    "Finance",
+    "Food Science",
+    "Forestry",
+    "French",
+    "Game Studies",
+    "Genetics",
+    "Geology",
+    "German",
+    "Global Studies",
+    "Health and Kinesiology",
+    "Health Sciences",
+    "History",
+    "Horticulture",
+    "Hospitality and Tourism Management",
+    "Human Development and Family Studies",
+    "Industrial Design",
+    "Industrial Engineering",
+    "Industrial Technology",
+    "Information Technology",
+    "Insurance and Risk Management",
+    "Interdisciplinary Science",
+    "Interior Design",
+    "International Business",
+    "Italian",
+    "Japanese",
+    "Jewish Studies",
+    "Landscape Architecture",
+    "Linguistics",
+    "Management",
+    "Manufacturing Engineering Technology",
+    "Marketing",
+    "Materials Engineering",
+    "Mathematics",
+    "Mechanical Engineering",
+    "Mechanical Engineering Technology",
+    "Mechatronics",
+    "Medieval and Renaissance Studies",
+    "Meteorology",
+    "Microbiology",
+    "Middle School Education",
+    "Multidisciplinary Engineering",
+    "Natural Resources and Environmental Science",
+    "Neurobiology and Physiology",
+    "Nuclear Engineering",
+    "Nutrition and Dietetics",
+    "Nutritional Science",
+    "Occupational and Environmental Health Sciences",
+    "Organizational Leadership",
+    "Pharmacy",
+    "Philosophy",
+    "Physical Education",
+    "Physics",
+    "Plant Biology",
+    "Plant Genetics, Breeding, and Biotechnology",
+    "Political Science",
+    "Psychology",
+    "Public Health",
+    "Radiological Health Science",
+    "Religious Studies",
+    "Retail Management",
+    "Robotics Engineering Technology",
+    "Russian",
+    "Sales Engineering",
+    "Sociology",
+    "Soil and Water Sciences",
+    "Sound for the Performing Arts",
+    "Spanish",
+    "Special Education",
+    "Speech, Language, and Hearing Sciences",
+    "Statistics",
+    "Strategic Communication",
+    "Supply Chain Management",
+    "Sustainable Food and Farming Systems",
+    "Sustainable Food and Nutrition Security",
+    "Systems Analysis and Design",
+    "Technology Leadership and Innovation",
+    "Theatre",
+    "Urban and Regional Planning",
+    "Visual Communication Design",
+    "Web Programming and Design",
+    "Wildlife",
+    "Women’s, Gender, and Sexuality Studies",
+    "Zoology",
+    "Other",
+  ];
   var major = document.getElementById("major");
   for (var i = 0; i < majors.length; i++) {
     var option = document.createElement("option");
@@ -349,8 +489,135 @@
   }
 
   const minors = [
-    "Accounting", "Advanced Global Technology", "Aerospace Studies", "African American Studies", "Agricultural Systems Management", "American Studies", "Animal Science", "Anthropology", "Aquatic Sciences", "Arabic Language and Culture", "Architectural Engineering", "Art and Design Studio", "Art History", "Artificial Intelligence/Machine Learning", "Asian American Studies", "Asian Studies", "ASL and Deaf Studies", "Astronomy", "Atmospheric Science", "Behavioral Economics", "Biochemistry", "Bioinformatics", "Biological Sciences", "Biotechnology", "Business Economics", "Business French", "Chemistry", "Chinese", "Classical Studies", "Communication", "Computer and Information Technology", "Computer Science", "Construction Management", "Creative Writing", "Criminal Justice", "Critical Disabilities Studies", "Cybersecurity", "Dance", "Data Analytics", "Design and Innovation", "Developmental and Family Science", "Ecological and Environmental Engineering", "Economics", "Electrical and Computer Engineering Technology", "English", "Entrepreneurship", "Environmental and Ecological Engineering", "Environmental Policy", "Environmental Studies", "Film and Video Studies", "Financial Counseling and Planning", "Financial Mathematics", "Food and Agribusiness Management", "Food Science", "Forensic Science", "French", "Gender and Sexuality Studies", "Geographic Information Systems", "Geography", "German", "Global Studies", "Health and Human Sciences", "History", "Horticulture", "Hospitality and Tourism Management", "Human Development and Family Studies", "Human Resource Development", "Human Services", "Individual and Family Studies", "Information Technology", "Integrated Studio Arts", "International Business", "International Studies", "Italian", "Japanese", "Jewish Studies", "Kinesiology", "Linguistics", "Management", "Marine Biology", "Materials Science and Engineering", "Mathematics", "Mechanical Engineering Technology", "Medical Humanities", "Medieval and Renaissance Studies", "Military Science", "Music History and Theory", "Music Technology", "Music", "Naval Science", "Nutrition", "Occupational Health Science", "Organizational Leadership", "Peace Studies", "Philosophy", "Physics", "Planetary Science", "Plant Biology", "Political Science", "Portuguese", "Pre-Law", "Pre-Medicine", "Professional Writing", "Psychology", "Public Health", "Public Relations and Strategic Communication", "Religious Studies", "Retail Management", "Robotics Engineering Technology", "Russian", "Social Work", "Sociology", "Soil Science", "Spanish", "Special Education", "Statistics", "Studio Arts", "Sustainable Environments", "Sustainable Food and Farming Systems", "Sustainability", "Technology, Innovation, and Entrepreneurship", "Theatre", "Tourism and Hospitality Management", "Urban Planning", "Veterinary Medicine", "Web Programming and Design", "Women’s, Gender, and Sexuality Studies", "Other"
-  ]
+    "Accounting",
+    "Advanced Global Technology",
+    "Aerospace Studies",
+    "African American Studies",
+    "Agricultural Systems Management",
+    "American Studies",
+    "Animal Science",
+    "Anthropology",
+    "Aquatic Sciences",
+    "Arabic Language and Culture",
+    "Architectural Engineering",
+    "Art and Design Studio",
+    "Art History",
+    "Artificial Intelligence/Machine Learning",
+    "Asian American Studies",
+    "Asian Studies",
+    "ASL and Deaf Studies",
+    "Astronomy",
+    "Atmospheric Science",
+    "Behavioral Economics",
+    "Biochemistry",
+    "Bioinformatics",
+    "Biological Sciences",
+    "Biotechnology",
+    "Business Economics",
+    "Business French",
+    "Chemistry",
+    "Chinese",
+    "Classical Studies",
+    "Communication",
+    "Computer and Information Technology",
+    "Computer Science",
+    "Construction Management",
+    "Creative Writing",
+    "Criminal Justice",
+    "Critical Disabilities Studies",
+    "Cybersecurity",
+    "Dance",
+    "Data Analytics",
+    "Design and Innovation",
+    "Developmental and Family Science",
+    "Ecological and Environmental Engineering",
+    "Economics",
+    "Electrical and Computer Engineering Technology",
+    "English",
+    "Entrepreneurship",
+    "Environmental and Ecological Engineering",
+    "Environmental Policy",
+    "Environmental Studies",
+    "Film and Video Studies",
+    "Financial Counseling and Planning",
+    "Financial Mathematics",
+    "Food and Agribusiness Management",
+    "Food Science",
+    "Forensic Science",
+    "French",
+    "Gender and Sexuality Studies",
+    "Geographic Information Systems",
+    "Geography",
+    "German",
+    "Global Studies",
+    "Health and Human Sciences",
+    "History",
+    "Horticulture",
+    "Hospitality and Tourism Management",
+    "Human Development and Family Studies",
+    "Human Resource Development",
+    "Human Services",
+    "Individual and Family Studies",
+    "Information Technology",
+    "Integrated Studio Arts",
+    "International Business",
+    "International Studies",
+    "Italian",
+    "Japanese",
+    "Jewish Studies",
+    "Kinesiology",
+    "Linguistics",
+    "Management",
+    "Marine Biology",
+    "Materials Science and Engineering",
+    "Mathematics",
+    "Mechanical Engineering Technology",
+    "Medical Humanities",
+    "Medieval and Renaissance Studies",
+    "Military Science",
+    "Music History and Theory",
+    "Music Technology",
+    "Music",
+    "Naval Science",
+    "Nutrition",
+    "Occupational Health Science",
+    "Organizational Leadership",
+    "Peace Studies",
+    "Philosophy",
+    "Physics",
+    "Planetary Science",
+    "Plant Biology",
+    "Political Science",
+    "Portuguese",
+    "Pre-Law",
+    "Pre-Medicine",
+    "Professional Writing",
+    "Psychology",
+    "Public Health",
+    "Public Relations and Strategic Communication",
+    "Religious Studies",
+    "Retail Management",
+    "Robotics Engineering Technology",
+    "Russian",
+    "Social Work",
+    "Sociology",
+    "Soil Science",
+    "Spanish",
+    "Special Education",
+    "Statistics",
+    "Studio Arts",
+    "Sustainable Environments",
+    "Sustainable Food and Farming Systems",
+    "Sustainability",
+    "Technology, Innovation, and Entrepreneurship",
+    "Theatre",
+    "Tourism and Hospitality Management",
+    "Urban Planning",
+    "Veterinary Medicine",
+    "Web Programming and Design",
+    "Women’s, Gender, and Sexuality Studies",
+    "Other",
+  ];
   var minor = document.getElementById("minor");
   for (var i = 0; i < minors.length; i++) {
     var option = document.createElement("option");
@@ -360,14 +627,14 @@
   }
 
   var notyf = new Notyf();
-  document.getElementById("residency").addEventListener("change", function() {
+  document.getElementById("residency").addEventListener("change", function () {
     if (document.getElementById("residency").value == "out") {
       document.getElementById("state").style.display = "block";
     } else {
       document.getElementById("state").style.display = "none";
     }
   });
-  document.getElementById("residency").addEventListener("change", function() {
+  document.getElementById("residency").addEventListener("change", function () {
     if (document.getElementById("residency").value == "int") {
       document.getElementById("country").style.display = "block";
     } else {
@@ -387,8 +654,7 @@
     var interests = document.getElementById("interests").value;
     var professional = document.getElementById("professional").value;
     var name = document.getElementById("name").value;
-    // var password = document.getElementById("password").value;
-    // var password_new = document.getElementById("password-new").value;
+    console.log(major);
 
     var data = {
       name: name,
@@ -407,16 +673,16 @@
     };
     console.log(data);
     fetch("/profile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-      .then(function(response) {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(function (response) {
         return response.json();
       })
-      .then(function(data) {
+      .then(function (data) {
         switch (data.status) {
           case "error":
             notyf.error(data.message);
@@ -436,11 +702,12 @@
   document.getElementById("delete").addEventListener("click", (e) => {
     e.preventDefault();
     fetch("/delete", {
-        method: "POST"
-      }).then(function(response) {
+      method: "POST",
+    })
+      .then(function (response) {
         return response.json();
       })
-      .then(function(data) {
+      .then(function (data) {
         switch (data.status) {
           case "error":
             notyf.error(data.message);
@@ -455,5 +722,5 @@
             break;
         }
       });
-  })
+  });
 </script>
