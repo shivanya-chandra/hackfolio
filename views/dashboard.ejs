@@ -75,29 +75,30 @@
           Reject
         </button>
       </div>
+
       <% } else { %>
       <!-- <p>hello</p> -->
       <% } %> <% } %>
-    </form>
-    <% } else { %>
 
-    <div class="card">
-      <a>You don't have any new connections</a>
-    </div>
-    <% } %>
+      <% } else { %>
 
-    <!-- <form id="sendRequestForm" action="/sendReq" method="POST"> -->
-    <!-- </form> -->
+      <div class="card">
+        <a>You don't have any new connections</a>
+      </div>
+      <% } %>
 
-    <div class="card">
-      <a onclick="getMentors()">Recommended Mentors</a>
-      <!-- <button onclick="getMentors()">Get recommended mentors</button> -->
-    </div>
+      <!-- <form id="sendRequestForm" action="/sendReq" method="POST"> -->
+      <!-- </form> -->
 
-    <div class="card">
-      <a href="/chat">Messages</a>
-    </div>
+      <div class="card">
+        <a onclick="getMentors()">Recommended Mentors</a>
+        <!-- <button onclick="getMentors()">Get recommended mentors</button> -->
+      </div>
 
+      <div class="card">
+        <a href="/chat">Messages</a>
+      </div>
+      </a>
   </div>
   <div class="recommended-mentors">
     <h2>Recommended <span class="special-dashboard">Mentors</span></h2>
