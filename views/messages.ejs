@@ -20,7 +20,7 @@
         <% for (let i = 0; i < friends.length; i++) { %>
         <a href="/chat/<%=userId%>/<%= friends[i].friendID %>" class="friend-item">
           <div class="friend-info">
-            <img src="<%= friends[i].profilePic %>" alt="Profile Picture" class="profile-pic">
+            <!-- <img src="<%= friends[i].profilePic %>" alt="Profile Picture" class="profile-pic"> -->
             <span><%= friends[i].friendName %></span>
           </div>
         </a>
@@ -56,7 +56,7 @@
       <% if(friend){
       %>
       <div class="profile-info">
-        <img src="<%= friend.profilePic %>" alt="Profile Picture" class="profile-pic-large">
+        <!-- <img src="<%= friend.profilePic %>" alt="Profile Picture" class="profile-pic-large"> -->
         <h3><%= friend.name %></h3>
         <p>Hi there! this is <%= friend.name %>, majoring in <%= friend.major.join(', ') %> and currently residing in <%= friend.country %>.</p>
         <div class="additional-info">
