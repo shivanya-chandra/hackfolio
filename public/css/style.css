@@ -299,6 +299,37 @@ body {
     font-family: 'Inter';
 }
 
+.email-requester {
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(74, 74, 74, 0.5);
+    padding: 20px;
+    padding-right: 50px;
+    margin-top: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: 'Inter';
+}
+
+.accept-btn {
+    border: none;
+    background-color: rgba(207, 185, 145, 1);
+    padding: 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.reject-btn {
+    border: none;
+    background-color: #ff4f4f;
+    padding: 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    color: #fff;
+}
+
 .req-email {
     border: none;
     background-color: rgba(207, 185, 145, 1);

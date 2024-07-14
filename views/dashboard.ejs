@@ -7,7 +7,7 @@
     <!--messages, explore mentors, become a mentor, connections, preferences, make profile-->
     <div class="card">
       <a>Send a Request</a>
-      <input type="text" placeholder="Email" id="email" name="email" class="email"/>
+      <input type="text" placeholder="Email" id="email" name="email" class="email" />
       <button class="req-email" onclick="sendRequest()">Send request</button>
     </div>
     <% if (user.profileCreated) { %>
@@ -59,14 +59,14 @@
     <form id="friendRequestForm" action="/addFriend" method="POST">
       <% if (user.requests.length) { %>
       <a>You have some requests</a>
-      <div class="card">
+      <!-- <div class="card">
         <input type="text" placeholder="Email" id="email" name="email" />
         <button onclick="sendRequest()">Send request</button>
-      </div>
+      </div> -->
       <% for(var i=0; i < user.requests.length; i++) { %> <% if
       (!user.requests[i].acceptedStatus) {%>
       <div>
-        <%= user.requests[i].requestSender %>
+        <div class="email-requester"><%= user.requests[i].requestSender %></div>
         <button type="button" class="accept-btn" onclick="acceptRequest(event)" data-sender="<%= user.requests[i].requestID %>">
           Accept
         </button>
