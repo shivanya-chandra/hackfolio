@@ -65,7 +65,7 @@
       </div> -->
       <% for(var i=0; i < user.requests.length; i++) { %> <% if
       (!user.requests[i].acceptedStatus) {%>
-      <div>
+      <div class="card">
         <div class="email-requester">
           <%= user.requests[i].requestSender %></div>
         <button type="button" class="accept-btn" onclick="acceptRequest(event)" data-sender="<%= user.requests[i].requestID %>">
