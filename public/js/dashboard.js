@@ -82,6 +82,7 @@ getMentors = () => {
 };
 
 sendRequest = () => {
+  console.log("here");
   var inputEmail = document.getElementById("email").value;
   console.log("Send request button clicked, email:", inputEmail);
   var data = {
