@@ -1,8 +1,130 @@
-<h1>Messages</h1>
-<br><br>
-<br>
-<ul>
-<% for (let i = 0; i < friends.length; i++
-) { %>
-    <a href="/chat/<%=userId%>/<%= friends[i].friendID %>"> <li> <%= friends[i].friendName %> </li></a> <br>
-    <% } %></ul>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/messages.css" rel="stylesheet" type="text/css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+  </style>
+  <title>Chat Application</title>
+</head>
+
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <h2>Inbox</h2>
+      <input type="text" class="search-bar" placeholder="Search">
+      <div class="friends-list">
+        <% for (let i = 0; i < friends.length; i++) { %>
+        <a href="/chat/<%=userId%>/<%= friends[i].friendID %>" class="friend-item">
+          <div class="friend-info">
+            <img src="<%= friends[i].profilePic %>" alt="Profile Picture" class="profile-pic">
+            <span><%= friends[i].friendName %></span>
+          </div>
+        </a>
+        <% } %>
+      </div>
+    </aside>
+    <main class="chat-container">
+      <div class="chat-header">
+        <% if(receiverID) { %>
+        <% 
+            for (let i = 0; i < friends.length; i++) {
+                if (friends[i].friendID.toString() == receiverID.toString()) {
+            %>
+        <h2><%= friends[i].friendName %></h2>
+        <% 
+                }
+            }
+            %>
+        <% } %>
+      </div>
+      <ul id="messages" class="messages-list">
+        <% for (let i = 0; i < chats.length; i++) { %>
+        <li class="message-item"><b><%= chats[i].senderName %></b>: <%= chats[i].message %></li>
+        <% } %>
+      </ul>
+      <form action="" id="msg" class="message-form">
+        <input id="msgInput" class="message-input" autocomplete="off" placeholder="Type your message" />
+        <button type="submit" class="send-button">Send</button>
+      </form>
+    </main>
+    <aside class="info-panel">
+      <h2>Info</h2>
+      <% if(friend){
+      %>
+      <div class="profile-info">
+        <img src="<%= friend.profilePic %>" alt="Profile Picture" class="profile-pic-large">
+        <h3><%= friend.name %></h3>
+        <p>Hi there! this is <%= friend.name %>, majoring in <%= friend.major.join(', ') %> and currently residing in <%= friend.country %>.</p>
+        <div class="additional-info">
+          <div class="info-item">
+            <p class="info-item-title">Connections</p>
+            <p><%= friend.friends.length %></p>
+          </div>
+          <div class="info-item">
+            <p class="info-item-title">Major</p>
+            <p><%= friend.major.join(', ') %></p>
+          </div>
+          <div class="info-item-2">
+            <p class="info-item-title">College</p>
+            <p><%= friend.college %></p>
+          </div>
+          <div class="info-item-2">
+            <p class="info-item-title">College</p>
+            <p><%= friend.college %></p>
+          </div>
+        </div>
+      </div>
+      <% 
+          }
+        
+      %>
+    </aside>
+  </div>
+</body>
+
+</html>
+
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+  var socket = io();
+  var senderID = "<%=senderID%>";
+  socket.emit('user_connect', senderID);
+
+  let msgForm = document.getElementById('msg');
+  let msg = document.getElementById('msgInput');
+  let receiverID = "<%= receiverID %>";
+  let senderName = "<%= senderName %>";
+
+  msgForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let message = msg.value;
+    if (message) {
+      socket.emit('chat message', {
+        receiverID,
+        message,
+        senderName,
+        senderID
+      });
+      msg.value = '';
+    }
+  });
+
+  socket.on("chat message", (e) => {
+    if ((e.receiverID == senderID && e.senderID == receiverID) || (e.receiverID == receiverID && e.senderID == senderID)) {
+      let item = document.createElement('li');
+      item.classList.add('message-item'); // Add the correct class here
+      item.innerHTML = `<b>${e.senderName}</b>: ${e.message}`;
+      document.getElementById('messages').appendChild(item);
+      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight; // Auto-scroll to bottom
+    }
+  });
+</script>
+
+</body>
+
+</html>

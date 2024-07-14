@@ -1,0 +1,92 @@
+@font-face {
+    font-family: 'United';
+    src: url('/assets/UnitedSansExLt.ttf') format('truetype');
+
+}
+
+@font-face {
+    font-family: 'UniBold';
+    src: url('/assets/UnitedSansSmExHv.ttf') format('truetype')
+}
+
+body {
+    font-family: 'Inter';
+    background-color: #1d1d1d;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 20px;
+}
+
+.profile-header h1 {
+    font-size: 2rem;
+    color: #fff;
+    font-family: UniBold;
+}
+
+.special-header {
+    color: rgba(207, 185, 145, 1);
+}
+
+.profile-info {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+    justify-content: flex-start;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-details h2 {
+    font-size: 1.5rem;
+}
+
+.profile-details p {
+    margin: 10px 0;
+}
+
+.profile-details button {
+    background-color: rgba(207, 185, 145, 1);
+    border: none;
+    color: #000;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.info {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 92%;
+}
+
+.info h3 {
+    margin-top: 0;
+    color: rgba(207, 185, 145, 1);
+}
+
+.info p {
+    margin: 5px 0;
+}

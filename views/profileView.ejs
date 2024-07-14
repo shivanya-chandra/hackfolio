@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="/css/profile.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+  </style>
+</head>
+
+<body>
+  <div class="profile-container">
+    <header class="profile-header">
+      <h1>Your <span class="special-header">Profile</span></h1>
+    </header>
+
+    <section class="profile-info">
+      <div class="profile-details">
+        <h2><%= user.name %></h2>
+        <p><%= user.email %></p>
+        <p>Hi there! this is <%= user.name %>, majoring in <%= user.major.join(', ') %> and currently residing in <%= user.country %>.</p>
+        <button>Edit</button>
+        <button>Share</button>
+      </div>
+    </section>
+
+    <section class="info">
+      <h3>Your Info</h3>
+      <p>Available Hours: <%= user.availableHours %></p>
+      <p>Major + Minor: <%= user.major ? user.major.join(', ') : '' %> + <%= user.minor ? user.minor.join(', ') : '' %></p>
+      <p>Residency Status: <%= user.residencyStatus %></p>
+      <p>Connections: <%= user.friends.length %></p>
+      <p>Career Interest: <%= user.professional %></p>
+      <p>Level of Education: <%= user.levelOfEducation %></p>
+      <p>Year of Study: <%= user.year %></p>
+    </section>
+  </div>
+</body>
+
+</html>
