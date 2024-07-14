@@ -1,12 +1,7 @@
 <h1 style="color: white">Search</h1>
 
 <form action="/dashboard/search">
-  <input
-    type="text"
-    name="query"
-    id="query"
-    placeholder="Query (search for name)"
-  />
+  <input type="text" name="query" id="query" placeholder="Query (search for name)" />
   <select name="major" id="major"></select>
   <select name="country" id="country">
     <option value="United States">United States of America</option>
@@ -240,6 +235,7 @@
   </select>
   <input type="submit" value="Search" />
 </form>
+<div id="results">hello</div>
 <br /><br />
 
 <!-- <h2 style="color: white; padding-top: 240px">Hi</h2> -->
@@ -406,7 +402,7 @@
     major.appendChild(option);
   }
   //   code for submission
-  document.querySelector("form").addEventListener("submit", function (e) {
+  document.querySelector("form").addEventListener("submit", function(e) {
     e.preventDefault();
     var query = document.getElementById("query").value;
     var major = document.getElementById("major").value;
@@ -418,20 +414,21 @@
     }
     // do a post req with all these fields in the body
     fetch("/dashboard/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: query,
-        major: major,
-        country: country,
-        college: college,
-      }),
-    })
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: query,
+          major: major,
+          country: country,
+          college: college,
+        }),
+      })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        displayResults(data);
         switch (data.status) {
           case "success":
             notyf.success(data.message);
@@ -441,5 +438,55 @@
             break;
         }
       });
+
+
   });
+  // document.getElementById('searchForm').addEventListener('submit', async function(e) {
+  //   e.preventDefault();
+
+  //   const form = e.target;
+  //   const formData = new FormData(form);
+
+  //   const searchParams = new URLSearchParams();
+  //   for (const pair of formData) {
+  //     searchParams.append(pair[0], pair[1]);
+  //   }
+
+  //   const response = await fetch('/search', {
+  //     method: 'POST',
+  //     body: searchParams,
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //   });
+
+  //   const result = await response.json();
+  //   displayResults(result.data);
+  // });
+
+  function displayResults(users) {
+    console.log("helo frommm funtions",users)
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = ''; 
+
+    if (users.length === 0) {
+      resultsDiv.innerHTML = '<p>No users found</p>';
+      return;
+    }
+
+    users.forEach(user => {
+      const userDiv = document.createElement('div');
+      userDiv.classList.add('user');
+
+      const userName = document.createElement('h3');
+      userName.textContent = user.name;
+      userDiv.appendChild(userName);
+
+      const userDetails = document.createElement('p');
+      userDetails.textContent = `Major: ${user.major.join(', ')}, College: ${user.college}, Country: ${user.country}`;
+      userDiv.appendChild(userDetails);
+
+      resultsDiv.appendChild(userDiv);
+    });
+  }
 </script>

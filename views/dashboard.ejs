@@ -5,21 +5,21 @@
 
   <div class="dashboard__wrapper">
     <!--messages, explore mentors, become a mentor, connections, preferences, make profile-->
-    <% if (user.profileCreated) { %>
     <div class="card">
-      <a>Profile already created</a>
+      <a>Send a Request</a>
+      <input type="text" placeholder="Email" id="email" name="email" class="email"/>
+      <button class="req-email" onclick="sendRequest()">Send request</button>
     </div>
+    <% if (user.profileCreated) { %>
+    <!-- <div class="card">
+      <a>Profile already created</a>
+    </div> -->
     <form action="/profile" method="POST">
       <div class="card">
-        <a>Edit Profile</a>
-        <button
-          type="button"
-          class="edit-profile"
-          id="edit-profile"
-          onclick="editProfile()"
-        >
+        <a href="/profile">Edit Profile</a>
+        <!-- <button type="button" class="edit-profile" id="edit-profile" onclick="editProfile()">
           Edit Profile
-        </button>
+        </button> -->
       </div>
     </form>
 
@@ -58,30 +58,19 @@
   <div class="dashboard__wrapper-2">
     <form id="friendRequestForm" action="/addFriend" method="POST">
       <% if (user.requests.length) { %>
+      <a>You have some requests</a>
       <div class="card">
-        <a>You have some requests</a>
         <input type="text" placeholder="Email" id="email" name="email" />
-
         <button onclick="sendRequest()">Send request</button>
       </div>
       <% for(var i=0; i < user.requests.length; i++) { %> <% if
       (!user.requests[i].acceptedStatus) {%>
       <div>
         <%= user.requests[i].requestSender %>
-        <button
-          type="button"
-          class="accept-btn"
-          onclick="acceptRequest(event)"
-          data-sender="<%= user.requests[i].requestID %>"
-        >
+        <button type="button" class="accept-btn" onclick="acceptRequest(event)" data-sender="<%= user.requests[i].requestID %>">
           Accept
         </button>
-        <button
-          type="button"
-          class="reject-btn"
-          onclick="rejectRequest(event)"
-          data-sender="<%= user.requests[i].requestID %>"
-        >
+        <button type="button" class="reject-btn" onclick="rejectRequest(event)" data-sender="<%= user.requests[i].requestID %>">
           Reject
         </button>
       </div>
@@ -92,23 +81,24 @@
     <% } else { %>
 
     <div class="card">
-      <a>You don't have any requests</a>
-      <input type="text" placeholder="Email" id="email" name="email" />
-
-      <button onclick="sendRequest()">Send request</button>
+      <a>You don't have any new connections</a>
     </div>
     <% } %>
 
+
+
     <!-- <form id="sendRequestForm" action="/sendReq" method="POST"> -->
     <!-- </form> -->
-    <div class="card">
-      <a>Recommended Mentors</a>
-      <button onclick="getMentors()">Get recommended mentors</button>
-    </div>
 
     <div class="card">
-      <a>Messages</a>
+      <a onclick="getMentors()">Recommended Mentors</a>
+      <!-- <button onclick="getMentors()">Get recommended mentors</button> -->
     </div>
+    <a href="/chat">
+      <div class="card">
+        <a href="/chat">Messages</a>
+      </div>
+    </a>
   </div>
   <div class="recommended-mentors">
     <h2>Recommended <span class="special-dashboard">Mentors</span></h2>
@@ -141,6 +131,7 @@
       </div>
     </div>
   </div>
+
 
   <%- include('./partials/chat') %>
 
