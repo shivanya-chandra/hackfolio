@@ -11,6 +11,7 @@ router.get("/profile", checkUser, (req, res) => {
     } else {
         res.status(401).send("User not authenticated");
     }
+    console.log("hello from profile")
 });
 
 router.get("delete", checkUser, (req, res) => {
