@@ -61,14 +61,16 @@ getMentors = () => {
         let mentor = mentors[i];
         console.log(mentor);
         let mentorCard = document.createElement("div");
-        mentorCard.classList.add("card");
+        mentorCard.classList.add("card2");
         mentorCard.innerHTML = `
            <h1>${mentor.college}</h1>
             <div class="card-content">
-             <h3>${mentor.name}/h3>
+             <h3>${mentor.name} <br>
+             Major: ${mentor.major.join(", ")} <br>
+            Minors: ${mentor.minor.join(", ")} <br>
+             </h3>
             <p>
-            Major: ${mentor.major.join(", ")}
-            Minors: ${mentor.minor.join(", ")}
+            
             </p>
             </div>
         </div>
