@@ -7,7 +7,13 @@
     <!--messages, explore mentors, become a mentor, connections, preferences, make profile-->
     <div class="card">
       <a>Send a Request</a>
-      <input type="text" placeholder="Email" id="email" name="email" class="email" />
+      <input
+        type="text"
+        placeholder="Email"
+        id="email"
+        name="email"
+        class="email"
+      />
       <button class="req-email" onclick="sendRequest()">Send request</button>
     </div>
     <% if (user.profileCreated) { %>
@@ -66,11 +72,16 @@
       <% for(var i=0; i < user.requests.length; i++) { %> <% if
       (!user.requests[i].acceptedStatus) {%>
       <div>
-        <div class="email-requester"><%= user.requests[i].requestSender %></div>
+        <%= user.requests[i].requestSender %>
         <button type="button" class="accept-btn" onclick="acceptRequest(event)" data-sender="<%= user.requests[i].requestID %>">
           Accept
         </button>
-        <button type="button" class="reject-btn" onclick="rejectRequest(event)" data-sender="<%= user.requests[i].requestID %>">
+        <button
+          type="button"
+          class="reject-btn"
+          onclick="rejectRequest(event)"
+          data-sender="<%= user.requests[i].requestID %>"
+        >
           Reject
         </button>
       </div>
@@ -84,8 +95,6 @@
       <a>You don't have any new connections</a>
     </div>
     <% } %>
-
-
 
     <!-- <form id="sendRequestForm" action="/sendReq" method="POST"> -->
     <!-- </form> -->
@@ -103,35 +112,9 @@
   <div class="recommended-mentors">
     <h2>Recommended <span class="special-dashboard">Mentors</span></h2>
     <div class="mentor-cards" id="mentors">
-      <div class="card2">
-        <!-- <div class="card2">
-        <h1>COS</h1>
-
-        <div class="card-content">
-          <h3>Richard Jensen</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur....</p>
-        </div>
+      
       </div>
-      <div class="card2">
-        <h1>COS</h1>
-
-        <div class="card-content">
-          <h3>Richard Jensen</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur....</p>
-        </div>
-      </div>
-      <div class="card2">
-        <h1>COS</h1>
-
-        <div class="card-content">
-          <h3>Richard Jensen</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur. Lorem ipsum dolor sit amet, consectetur....</p>
-        </div>
-      </div> -->
-      </div>
-    </div>
   </div>
-
 
   <%- include('./partials/chat') %>
 
