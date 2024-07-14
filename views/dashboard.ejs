@@ -58,7 +58,7 @@
   <div class="dashboard__wrapper-2">
     <form id="friendRequestForm" action="/addFriend" method="POST">
       <% if (user.requests.length) { %>
-      <a>You have some requests</a>
+      <!-- <a>You have some requests</a> -->
       <!-- <div class="card">
         <input type="text" placeholder="Email" id="email" name="email" />
         <button onclick="sendRequest()">Send request</button>
@@ -93,11 +93,11 @@
       <a onclick="getMentors()">Recommended Mentors</a>
       <!-- <button onclick="getMentors()">Get recommended mentors</button> -->
     </div>
-    <a href="/chat">
-      <div class="card">
-        <a href="/chat">Messages</a>
-      </div>
-    </a>
+
+    <div class="card">
+      <a href="/chat">Messages</a>
+    </div>
+
   </div>
   <div class="recommended-mentors">
     <h2>Recommended <span class="special-dashboard">Mentors</span></h2>
