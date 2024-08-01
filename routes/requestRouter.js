@@ -14,6 +14,7 @@ router.post('/sendReq', checkUser, async (req, res) => {
     console.log("Request body:", req.body);
 
     const { receiverEmail } = req.body;
+    const friendId = await User.findOne({email: receiverEmail});
     console.log("Receiver email:", receiverEmail);
     const email = req.user.email;
     if (receiverEmail === email) {
@@ -36,18 +37,9 @@ router.post('/sendReq', checkUser, async (req, res) => {
                 message: "Cannot find a user with that email"
             });
         }
-        const reqUser = await User.findOne({ email: receiverEmail });
-        if (reqUser.requests.some(request => 
-            request.requestID.equals(reqId._id) && 
-            request.requestSender === email && 
-            request.status === 'pending')) {
-            console.log("Request already sent to this user");
-            return res.send({
-                status: "error",
-                message: "Request already sent to this user"
-            });
-        }
-        else if (reqUser.friends.includes(email)) {
+        const reqUser = await User.findOne({ email });
+        const isFriend = reqId.friends.map(friend => friend.friendID.toString() == friendId._id.toString());
+      if (isFriend) {
             console.log("You are already connections with this user");
             return res.send({
                 status: "error",
