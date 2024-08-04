@@ -214,3 +214,6 @@ body {
 .additional-info {
     margin-top: 70px;
 }
+.card-content {
+    text-decoration: none;
+}

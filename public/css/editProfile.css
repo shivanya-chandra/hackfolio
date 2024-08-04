@@ -126,3 +126,6 @@ input[type="checkbox"]:checked::before {
     left: 5px;
     font-size: 14px;
 }
+.card-content {
+    text-decoration: none;
+}

@@ -63,16 +63,18 @@ getMentors = () => {
         let mentorCard = document.createElement("div");
         mentorCard.classList.add("card2");
         mentorCard.innerHTML = `
-           <h1>${mentor.college}</h1>
-            <div class="card-content">
-             <h3>${mentor.name} <br>
-             Major: ${mentor.major.join(", ")} <br>
-            Minors: ${mentor.minor.join(", ")} <br>
-             </h3>
+          <h1>${mentor.college}</h1>
+          <div class="card-content">
+            <a href="/mentor/${mentor._id.toString()}">
+              <h3>${mentor.name} <br>
+              Major: ${mentor.major.join(", ")} <br>
+              Minors: ${mentor.minor.join(", ")} <br>
+              </h3>
+            </a>
             <p>
             
             </p>
-            </div>
+          </div>
         </div>
         `;
         mentorList.appendChild(mentorCard);
@@ -80,6 +82,8 @@ getMentors = () => {
       return;
     });
 };
+
+
 
 sendRequest = () => {
   console.log("here");

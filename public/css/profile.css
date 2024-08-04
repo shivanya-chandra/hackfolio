@@ -90,3 +90,6 @@ body {
 .info p {
     margin: 5px 0;
 }
+.card-content {
+    text-decoration: none;
+}

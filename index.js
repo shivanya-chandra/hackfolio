@@ -90,6 +90,7 @@ const helloRouter = require("./routes/helloRouter");
 const friendRouter = require("./routes/friendRouter");
 const chatRouter = require("./routes/chatRouter");
 const profileViewRouter = require("./routes/profileViewRouter")
+const mentorViewRouter = require("./routes/mentorViewRouter");
 
 
 app.use(indexRouter);
@@ -104,6 +105,7 @@ app.use(profileRouter);
 app.use(friendRouter);
 app.use(chatRouter);
 app.use(profileViewRouter);
+app.use(mentorViewRouter);
 
 const PORT = 8080;
 const MONGO_URI = 'mongodb+srv://aayanagarwal05:hello@cluster0.ipsboy4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';

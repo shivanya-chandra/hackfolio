@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Info</title>
+  <style>
+    @font-face {
+      font-family: 'UniBold';
+      src: url('/assets/UnitedSansSmExHv.ttf') format('truetype');
+    }
+
+    body {
+      background-color: black;
+      color: rgba(207, 185, 145, 1);
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      padding: 30px;
+      background-color: rgba(15, 15, 15, 1);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .heading {
+      font-family: 'UniBold', sans-serif;
+      font-size: 28px;
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .info {
+      color: rgba(207, 185, 145, 1);
+      margin-bottom: 30px;
+      font-size: 20px;
+    }
+
+    .info span {
+      color: rgba(255, 255, 255, 0.38);
+    }
+
+    .info-heading {
+      color: rgba(207, 185, 145, 1);
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      margin-top: 30px;
+    }
+
+    .buttons button {
+      padding: 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .send-request {
+      background-color: #CFB991;
+      color: #1b1b1b;
+    }
+
+    .go-back {
+      background-color: #555;
+      color: rgba(207, 185, 145, 1);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+  <script>
+    function goBack() {
+      window.location.href = '/dashboard';
+    }
+
+    function sendMentorRequest(mentorId, mentorEmail) {
+      var notyf = new Notyf();
+
+      console.log(`Mentor ID: ${mentorId}, Mentor Email: ${mentorEmail}`);
+      console.log("Send request button clicked, email:", mentorEmail);
+      var data = {
+        receiverEmail: mentorEmail,
+      };
+
+      console.log("this is data from sender email", data);
+      console.log("hey from sendRequest function");
+      fetch("/sendReq", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Response data:", data);
+          switch (data.status) {
+            case "error":
+              notyf.error(data.message);
+              break;
+            case "success":
+              notyf.success(data.message);
+              break;
+            default:
+              notyf.error("An error occurred");
+              break;
+          }
+          inputEmail = "";
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          notyf.error("Some error");
+        });
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="heading">Mentor <span class="info-heading">Info</span></div>
+    <div class="info">Name: <span><%= mentor.name %></span></div>
+    <div class="info">Country: <span><%= mentor.country %></span></div>
+    <div class="info">Gender: <span><%= mentor.gender %></span></div>
+    <div class="info">Majors: <span><%= mentor.major.join(', ') %></span></div>
+    <div class="info">Friends: <span><%= mentor.friends.length %></span></div>
+    <div class="buttons">
+      <button class="send-request" onclick="sendMentorRequest('<%= mentor._id %>', '<%= mentor.email %>')">Send Request</button>
+      <button class="go-back" onclick="goBack()">Go Back</button>
+    </div>
+  </div>
+</body>
+
+</html>
