@@ -14,9 +14,10 @@ router.post('/sendReq', checkUser, async (req, res) => {
     console.log("Request body:", req.body);
 
     const { receiverEmail } = req.body;
-    const friendId = await User.findOne({email: receiverEmail});
+    const friendId = await User.findOne({ email: receiverEmail });
     console.log("Receiver email:", receiverEmail);
     const email = req.user.email;
+
     if (receiverEmail === email) {
         console.log("Cannot send request to self");
         return res.send({
@@ -37,39 +38,34 @@ router.post('/sendReq', checkUser, async (req, res) => {
                 message: "Cannot find a user with that email"
             });
         }
-        const reqUser = await User.findOne({ email });
-        const isFriend = reqId.friends.map(friend => friend.friendID.toString() == friendId._id.toString());
-      if (isFriend) {
+
+        const isFriend = reqId.friends.some(friend => friend.friendID.toString() === friendId._id.toString());
+
+        if (isFriend) {
             console.log("You are already connections with this user");
             return res.send({
                 status: "error",
                 message: "You are already connections with this user"
             });
-        }
-        else {
-
-        const updateResult = await User.findOneAndUpdate(
-            { email: receiverEmail },
-            {
-                $push: {
-                    requests: {
-                        requestID: reqId._id,
-                        requestSender: email,
-                        status: 'pending'
+        } else {
+            const updateResult = await User.findOneAndUpdate(
+                { email: receiverEmail },
+                {
+                    $push: {
+                        requests: {
+                            requestID: reqId._id,
+                            requestSender: email,
+                            status: 'pending'
+                        }
                     }
                 }
-            }
-        );
-        console.log("Update result:", updateResult);
-        return res.send({
-            status: "success",
-            message: "Connection request sent successfully"
-        });
-    }
-
-       
-
-       
+            );
+            console.log("Update result:", updateResult);
+            return res.send({
+                status: "success",
+                message: "Connection request sent successfully"
+            });
+        }
     } catch (error) {
         console.error("Error during the connection request process:", error);
         return res.send({
@@ -78,5 +74,6 @@ router.post('/sendReq', checkUser, async (req, res) => {
         });
     }
 });
+
 
 module.exports = router;
