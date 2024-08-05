@@ -41,6 +41,7 @@ io.on('connection', (socket) => {
 
   socket.on('user_connect', (data) => {
     userID = data.id;
+    console.log("User connected: ", data);
   });
 
   socket.on('chat message', (data) => {
