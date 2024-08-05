@@ -73,7 +73,6 @@ const menteeRouter = require("./routes/menteeRouter");
 const mentorRouter = require("./routes/mentorRouter");
 const profileRouter = require("./routes/profileRouter");
 const requestRouter = require("./routes/requestRouter");
-const helloRouter = require("./routes/helloRouter");
 const friendRouter = require("./routes/friendRouter");
 const chatRouter = require("./routes/chatRouter");
 const profileViewRouter = require("./routes/profileViewRouter");
@@ -90,7 +89,6 @@ app.use(friendRouter);
 app.use(chatRouter);
 app.use(profileViewRouter);
 app.use(mentorViewRouter);
-
 const PORT = process.env.PORT || 8080;
 const MONGO_URI = process.env.MONGO_URI;
 
