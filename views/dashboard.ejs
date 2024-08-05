@@ -44,16 +44,16 @@
     </div>
     <% } %> <% if (user.isMentor) { %>
     <div class="card">
-      <a href="/mentor/dashboard">Mentor Dashboard</a>
+      <a href="/profile">Become Mentor</a>
     </div>
     <% } else {%>
-    <div class="card">
+    <!-- <div class="card">
       <button type="button" onclick="newMentor()">Become a mentor</button>
-    </div>
+    </div> -->
     <% } %> <% if (!user.isMentee) { %>
-    <div class="card">
+    <!-- <div class="card">
       <button type="button" onclick="newMentee()">Become a mentee</button>
-    </div>
+    </div> -->
     <% } %>
   </div>
   <div class="dashboard__wrapper-2">
