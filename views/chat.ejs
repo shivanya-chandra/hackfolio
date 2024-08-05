@@ -1,7 +1,6 @@
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
-    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+
     <link rel="stylesheet" type="text/css" href="/css/messages.css">
-    <link rel="stylesheet" type="text/css" href="/css/editProfile.css">
+
 <h1>Chat</h1>
 
 <ul id="messages">
@@ -18,7 +17,7 @@
 </form>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-var socket = io();
+var socket = io('https://boilerfind-git-main-shivanyachandras-projects.vercel.app', { transports: ['websocket'] });;
 var senderID = "<%=senderID%>";
 socket.emit('user_connect', senderID);
 
