@@ -13,7 +13,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "https://boilerfind-git-main-shivanyachandras-projects.vercel.app", 
+    origin: "https://boilerfind-git-main-shivanyachandras-projects.vercel.app", // Vercel app URL
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -21,7 +21,7 @@ const io = new Server(server, {
 
 app.set("view engine", "ejs");
 
-app.use(cors()); 
+app.use(cors()); // Enable CORS
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
