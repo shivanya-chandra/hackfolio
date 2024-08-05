@@ -23,7 +23,10 @@ const io = new Server(server, {
 app.set("view engine", "ejs");
 app.use(cors());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: 0, // Disable caching
+  etag: false // Disable etag
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use(expressLayouts);
 app.use(express.json());
