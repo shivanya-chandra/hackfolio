@@ -6,15 +6,22 @@ const cookieParser = require("cookie-parser");
 const expressLayouts = require("express-ejs-layouts");
 const partials = require('express-partials');
 const chat = require("./models/chatModel");
+const cors = require("cors");
 
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "https://boilerfind-git-main-shivanyachandras-projects.vercel.app",
+    methods: ["GET", "POST"],
+  },
+});
+
 
 app.set("view engine", "ejs");
-
+app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
