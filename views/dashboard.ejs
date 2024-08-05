@@ -42,7 +42,7 @@
     <div class="card">
       <a href="/dashboard/new">Create Profile</a>
     </div>
-    <% } %> <% if (user.isMentor) { %>
+    <% } %> <% if (!user.isMentor) { %>
     <div class="card">
       <a href="/profile">Become Mentor</a>
     </div>
