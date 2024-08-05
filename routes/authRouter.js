@@ -81,7 +81,7 @@ router.post("/register", async (req, res) => {
           expiresIn: "1d",
         });
         const PORT = 3000 || process.env.PORT;
-        const url = `${PORT}/auth/confirmation/${emailToken}`;
+        const url = `https://boilerfind-git-main-shivanyachandras-projects.vercel.app/auth/confirmation/${emailToken}`;
         
         await transporter.sendMail(
           {
