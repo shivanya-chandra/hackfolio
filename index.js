@@ -4,24 +4,24 @@ const path = require("path");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const expressLayouts = require("express-ejs-layouts");
-const partials = require('express-partials');
 const chat = require("./models/chatModel");
 const cors = require('cors');
 
 const app = express();
-const http = require('http');
+const http = require("http");
 const server = http.createServer(app);
-const { Server } = require('socket.io');
+const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "https://boilerfind-git-main-shivanyachandras-projects.vercel.app", // Vercel app URL
-    methods: ["GET", "POST"]
+    origin: "https://boilerfind-git-main-shivanyachandras-projects.vercel.app", 
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
 app.set("view engine", "ejs");
 
-app.use(cors()); // Enable CORS
+app.use(cors()); 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -32,17 +32,15 @@ app.use('/socket.io', express.static(path.join(__dirname, 'node_modules', 'socke
 
 // Socket.IO setup
 io.on('connection', (socket) => {
-  let userID = "";
-
   console.log("a user connected");
 
   socket.on('user_connect', (data) => {
-    userID = data.id;
+    console.log(`User connected with ID: ${data}`);
   });
 
   socket.on('chat message', (data) => {
     const { receiverID, message, senderID, senderName } = data;
-    console.log(data);
+    console.log(`Message received from ${senderID} to ${receiverID}: ${message}`);
     let totalmsg = {
       receiverID: receiverID,
       senderID: senderID,
@@ -51,14 +49,12 @@ io.on('connection', (socket) => {
     };
 
     io.emit('chat message', totalmsg);
-    console.log(senderID)
     const newMessage = new chat({
       senderID: senderID,
       receiverID: receiverID,
       message: message,
       senderName: senderName
     });
-    console.log(newMessage);
 
     newMessage.save().then(() => {
       console.log('message saved');
@@ -100,7 +96,7 @@ app.use(mentorViewRouter);
 const PORT = process.env.PORT || 8000;
 const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect(MONGO_URI, { useUnifiedTopology: true }).then(() => {
+mongoose.connect(MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true }).then(() => {
   console.log("connected to MongoDB");
   server.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`);

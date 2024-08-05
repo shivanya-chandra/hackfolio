@@ -117,10 +117,10 @@
   socket.on("chat message", (e) => {
     if ((e.receiverID == senderID && e.senderID == receiverID) || (e.receiverID == receiverID && e.senderID == senderID)) {
       let item = document.createElement('li');
-      item.classList.add('message-item'); // Add the correct class here
+      item.classList.add('message-item'); 
       item.innerHTML = `<b>${e.senderName}</b>: ${e.message}`;
       document.getElementById('messages').appendChild(item);
-      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight; // Auto-scroll to bottom
+      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
     }
   });
 </script>
