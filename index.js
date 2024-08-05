@@ -21,7 +21,7 @@ const io = new Server(server, {
 
 app.set("view engine", "ejs");
 
-app.use(cors()); // Enable CORS
+app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -30,15 +30,16 @@ app.use(express.json());
 app.set("views", path.join(__dirname, "views"));
 app.use('/socket.io', express.static(path.join(__dirname, 'node_modules', 'socket.io', 'client-dist')));
 
-// Socket.IO setup
 io.on('connection', (socket) => {
-  console.log("a user connected");
+  console.log("A user connected");
 
   socket.on('user_connect', (data) => {
     console.log(`User connected with ID: ${data}`);
+    socket.join(data); // Join room based on user ID for targeted messages
   });
 
   socket.on('chat message', (data) => {
+    console.log('chat message event received');
     const { receiverID, message, senderID, senderName } = data;
     console.log(`Message received from ${senderID} to ${receiverID}: ${message}`);
     let totalmsg = {
@@ -48,7 +49,7 @@ io.on('connection', (socket) => {
       senderName: senderName
     };
 
-    io.emit('chat message', totalmsg);
+    io.to(receiverID).emit('chat message', totalmsg); // Emit only to the receiver
     const newMessage = new chat({
       senderID: senderID,
       receiverID: receiverID,
@@ -57,14 +58,14 @@ io.on('connection', (socket) => {
     });
 
     newMessage.save().then(() => {
-      console.log('message saved');
+      console.log('Message saved');
     }).catch(err => {
       console.error('Error saving message:', err);
     });
   });
 
   socket.on('disconnect', () => {
-    console.log('a user disconnected');
+    console.log('A user disconnected');
   });
 });
 
@@ -97,7 +98,7 @@ const PORT = process.env.PORT || 8000;
 const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true }).then(() => {
-  console.log("connected to MongoDB");
+  console.log("Connected to MongoDB");
   server.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`);
   });

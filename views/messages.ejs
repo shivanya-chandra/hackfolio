@@ -79,7 +79,7 @@
   <script type="text/javascript">
     var socket = io('https://boilerfind-git-main-shivanyachandras-projects.vercel.app');
     var senderID = "<%= senderID %>";
-    console.log(`Connecting as user: ${senderID}`); // Add log here
+    console.log(`Connecting as user: ${senderID}`);
     socket.emit('user_connect', senderID);
 
     let msgForm = document.getElementById('msg');
@@ -91,7 +91,7 @@
       e.preventDefault();
       let message = msg.value;
       if (message) {
-        console.log(`Sending message from ${senderID} to ${receiverID}: ${message}`); // Add log here
+        console.log(`Sending message from ${senderID} to ${receiverID}: ${message}`);
         socket.emit('chat message', {
           receiverID,
           message,
@@ -103,7 +103,7 @@
     });
 
     socket.on("chat message", (e) => {
-      console.log(`Message received from ${e.senderID} to ${e.receiverID}: ${e.message}`); 
+      console.log(`Message received from ${e.senderID} to ${e.receiverID}: ${e.message}`);
       if ((e.receiverID == senderID && e.senderID == receiverID) || (e.receiverID == receiverID && e.senderID == senderID)) {
         let item = document.createElement('li');
         item.classList.add('message-item');
@@ -111,6 +111,20 @@
         document.getElementById('messages').appendChild(item);
         document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
       }
+    });
+
+    // Handle reconnection attempts
+    socket.on('disconnect', () => {
+      console.log('Disconnected from server');
+    });
+
+    socket.on('reconnect', () => {
+      console.log('Reconnected to server');
+      socket.emit('user_connect', senderID);
+    });
+
+    socket.on('reconnect_attempt', () => {
+      console.log('Attempting to reconnect...');
     });
   </script>
 </body>
