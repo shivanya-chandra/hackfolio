@@ -20,7 +20,6 @@
         <% for (let i = 0; i < friends.length; i++) { %>
         <a href="/chat/<%=userId%>/<%= friends[i].friendID %>" class="friend-item">
           <div class="friend-info">
-            <!-- <img src="<%= friends[i].profilePic %>" alt="Profile Picture" class="profile-pic"> -->
             <span><%= friends[i].friendName %></span>
           </div>
         </a>
@@ -53,10 +52,8 @@
     </main>
     <aside class="info-panel">
       <h2>Info</h2>
-      <% if(friend){
-      %>
+      <% if(friend){ %>
       <div class="profile-info">
-        <!-- <img src="<%= friend.profilePic %>" alt="Profile Picture" class="profile-pic-large"> -->
         <h3><%= friend.name %></h3>
         <p>Hi there! this is <%= friend.name %>, majoring in <%= friend.major.join(', ') %> and currently residing in <%= friend.country %>.</p>
         <div class="additional-info">
@@ -72,59 +69,50 @@
             <p class="info-item-title">College</p>
             <p><%= friend.college %></p>
           </div>
-          <div class="info-item-2">
-            <p class="info-item-title">College</p>
-            <p><%= friend.college %></p>
-          </div>
         </div>
       </div>
-      <% 
-          }
-        
-      %>
+      <% } %>
     </aside>
   </div>
-</body>
 
-</html>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    var socket = io('https://boilerfind-git-main-shivanyachandras-projects.vercel.app');
+    var senderID = "<%= senderID %>";
+    console.log(`Connecting as user: ${senderID}`); // Add log here
+    socket.emit('user_connect', senderID);
 
-</div>
-<script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
-  var socket = io('https://boilerfind-git-main-shivanyachandras-projects.vercel.app');
-  var senderID = "<%=senderID%>";
-  socket.emit('user_connect', senderID);
+    let msgForm = document.getElementById('msg');
+    let msg = document.getElementById('msgInput');
+    let receiverID = "<%= receiverID %>";
+    let senderName = "<%= senderName %>";
 
-  let msgForm = document.getElementById('msg');
-  let msg = document.getElementById('msgInput');
-  let receiverID = "<%= receiverID %>";
-  let senderName = "<%= senderName %>";
+    msgForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let message = msg.value;
+      if (message) {
+        console.log(`Sending message from ${senderID} to ${receiverID}: ${message}`); // Add log here
+        socket.emit('chat message', {
+          receiverID,
+          message,
+          senderName,
+          senderID
+        });
+        msg.value = '';
+      }
+    });
 
-  msgForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let message = msg.value;
-    if (message) {
-      socket.emit('chat message', {
-        receiverID,
-        message,
-        senderName,
-        senderID
-      });
-      msg.value = '';
-    }
-  });
-
-  socket.on("chat message", (e) => {
-    if ((e.receiverID == senderID && e.senderID == receiverID) || (e.receiverID == receiverID && e.senderID == senderID)) {
-      let item = document.createElement('li');
-      item.classList.add('message-item'); 
-      item.innerHTML = `<b>${e.senderName}</b>: ${e.message}`;
-      document.getElementById('messages').appendChild(item);
-      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-    }
-  });
-</script>
-
+    socket.on("chat message", (e) => {
+      console.log(`Message received from ${e.senderID} to ${e.receiverID}: ${e.message}`); 
+      if ((e.receiverID == senderID && e.senderID == receiverID) || (e.receiverID == receiverID && e.senderID == senderID)) {
+        let item = document.createElement('li');
+        item.classList.add('message-item');
+        item.innerHTML = `<b>${e.senderName}</b>: ${e.message}`;
+        document.getElementById('messages').appendChild(item);
+        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+      }
+    });
+  </script>
 </body>
 
 </html>
